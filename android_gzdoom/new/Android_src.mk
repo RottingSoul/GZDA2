@@ -33,7 +33,6 @@ $(TOP_DIR)/../../Serial/jni \
  $(GZDOOM_TOP_PATH)/src/g_raven \
  $(GZDOOM_TOP_PATH)/src/g_strife \
  $(GZDOOM_TOP_PATH)/src/g_shared \
- 
  $(GZDOOM_TOP_PATH)/src/common \
  $(GZDOOM_TOP_PATH)/src/console \
  $(GZDOOM_TOP_PATH)/src/gamedata \
@@ -49,7 +48,6 @@ $(TOP_DIR)/../../Serial/jni \
  $(GZDOOM_TOP_PATH)/src/sound \
  $(GZDOOM_TOP_PATH)/src/utility \
  $(GZDOOM_TOP_PATH)/src/win32 \
- 
 $(TOP_DIR)/openal-soft-android/include \
 $(TOP_DIR)/FMOD_studio/api/lowlevel/inc \
 $(TOP_DIR)/jpeg8d/include \
