@@ -1,17 +1,17 @@
 #!/bin/bash
 
-#if [[ $1 != 'noclean' ]]; then
-#    rm -rf doom/.externalNativeBuild
-#    rm -rf doom/build
-#    rm -rf doom/src/main/obj
-#    rm -rf doom/src/main/jni/gzdoom_android
-#    cp -r doom/src/main/jni/gzdoom doom/src/main/jni/gzdoom_android
-#    cp -r android_gzdoom/new/*mk doom/src/main/jni/gzdoom_android
-#    cp -r android_gzdoom/new/src/android doom/src/main/jni/gzdoom_android/src
-#    cp -r android_gzdoom/new/src/sound/fmodsound_studio.* doom/src/main/jni/gzdoom_android/src/sound
-#    cp -r android_gzdoom/new/src/gl/api doom/src/main/jni/gzdoom_android/src/gl
-#fi
-#
+if [[ $1 != 'noclean' ]]; then
+    rm -rf doom/.externalNativeBuild
+    rm -rf doom/build
+    rm -rf doom/src/main/obj
+    rm -rf doom/src/main/jni/gzdoom_android
+    cp -r doom/src/main/jni/gzdoom doom/src/main/jni/gzdoom_android
+    cp -r android_gzdoom/new/*mk doom/src/main/jni/gzdoom_android
+    cp -r android_gzdoom/new/src/android doom/src/main/jni/gzdoom_android/src
+    cp -r android_gzdoom/new/src/sound/fmodsound_studio.* doom/src/main/jni/gzdoom_android/src/sound
+    cp -r android_gzdoom/new/src/gl/api doom/src/main/jni/gzdoom_android/src/gl
+fi
+
 #patches=$(find android_gzdoom/patches -type f)
 #
 #temp_file=/tmp/gzdoom_android_source
