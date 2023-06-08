@@ -1,4 +1,4 @@
-#include "GLheader_TC.h"
+#include "GLheader.h"
 
 #ifndef _GLRect_H_
 #define _GLRect_H_
@@ -9,7 +9,7 @@ namespace touchcontrols
 class GLRect
 {
 public:
-	float width, height;
+	float width,height;
 
 	GLfloat vertices[12];
 
@@ -18,10 +18,6 @@ public:
 	GLRect();
 
 	void resize(float width, float height);
-
-	void mirror(bool v, bool h);
-
-	void rotate90(bool ccw);
 };
 
 }

@@ -3,7 +3,6 @@
 #include "GLRect.h"
 #include "PointF.h"
 #include "OpenGLUtils.h"
-#include "TapDetect.h"
 
 #ifndef _MultitouchMouse_H_
 #define _MultitouchMouse_H_
@@ -17,6 +16,7 @@
 #define MULTITOUCHMOUSE_2_UP   5
 
 #define MULTITOUCHMOUSE_ZOOM   6
+#define MULTITOUCHMOUSE_LONG_PRESS   7
 
 namespace touchcontrols
 {
@@ -37,18 +37,24 @@ class MultitouchMouse : public ControlSuper
 	GLRect glRect;
 	GLLines *glLines;
 
-	PointF last, last2;
+
+	PointF last,last2;
 
 	PointF anchor;
 
-	TapDetect tapDetect;
 
+	//Double tap stuff
+	int tapState; //0 = waiting for first press, 1 = waiting for first lift,
+	int tapCounter;
+
+	//enum mode{
 public:
-	sigc::signal<void, int, float, float, float, float> signal_action;
+	sigc::signal<void,int, float,float,float,float> signal_action;
 
 	sigc::signal<void, int> signal_double_tap;
 
-	MultitouchMouse(std::string tag, RectF pos, std::string image_filename);
+
+	MultitouchMouse(std::string tag,RectF pos,std::string image_filename);
 
 	void setHideGraphics(bool v);
 
@@ -68,7 +74,7 @@ public:
 private:
 
 	void reset();
-	float distancePoints(PointF p1, PointF p2);
+	float distancePoints(PointF p1,PointF p2);
 
 };
 

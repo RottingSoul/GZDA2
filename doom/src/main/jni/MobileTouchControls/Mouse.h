@@ -3,7 +3,6 @@
 #include "GLRect.h"
 #include "PointF.h"
 #include "OpenGLUtils.h"
-#include "TapDetect.h"
 
 #ifndef _Mouse_H_
 #define _Mouse_H_
@@ -42,18 +41,21 @@ class Mouse : public ControlSuper
 	PointF anchor;
 	int glitchFix;
 
-	TapDetect tapDetect;
 
-	void emit(int, float, float, float, float);
-
+	//Double tap stuff
+	int tapState; //0 = waiting for first press, 1 = waiting for first lift,
+	int tapCounter;
 public:
-	sigc::signal<void, int, float, float, float, float> signal_action;
+	sigc::signal<void,int, float,float,float,float> signal_action;
 
-	Mouse(std::string tag, RectF pos, std::string image_filename);
+	sigc::signal<void, int> signal_double_tap;
+
+
+	Mouse(std::string tag,RectF pos,std::string image_filename);
 
 	void setHideGraphics(bool v);
 
-	void resetOutput();
+   	void resetOutput();
 
 	bool processPointer(int action, int pid, float x, float y);
 
@@ -66,11 +68,12 @@ public:
 	void saveXML(TiXmlDocument &doc);
 
 	void loadXML(TiXmlDocument &doc);
-
 private:
+
 	void reset();
 	void calcNewValue();
 	void doUpdate();
+	double getMS();
 };
 
 }

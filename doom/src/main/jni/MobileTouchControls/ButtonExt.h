@@ -33,19 +33,21 @@ class ButtonExt : public ControlSuper
 
 	bool flash;
 	bool flashDir;
-	uint64_t  flashCount;
+	int long long  flashCount;
+
+	double getMS();
+
+	int long long current_timestamp();
 
 	int doubleTapState; //0 = waiting for first press, 1 = waiting for first lift,
-	uint64_t doubleTapCounter;
+	int long long doubleTapCounter;
 	PointF doubleTapPos;
-
-	double tapTimer;
 
 public:
 	std::string image;
 	sigc::signal<void, int, int> signal_button;
 
-	ButtonExt(std::string tag, RectF pos, std::string image_filename, int value, bool repeat = false, bool hidden = false);
+	ButtonExt(std::string tag,RectF pos,std::string image_filename,int value,bool repeat=false,bool hidden=false);
 	//Button(std::string tag,RectF pos,std::string image_filename,int value,bool repeat,bool hidden);
 	//Button(std::string tag,RectF pos,std::string image_filename,int value,bool repeat,bool hidden);
 

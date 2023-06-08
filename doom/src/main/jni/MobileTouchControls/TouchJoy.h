@@ -16,15 +16,11 @@ class TouchJoy : public ControlSuper
 	bool pressed;
 	bool hideGraphics;
 
-public: // SWAPFIX. Make this avaible to the other TouchJoy
-	int pid;
-private:
+	int id;
 
-	std::string floating_image;
-	std::string background_image;
+	std::string image;
 
 	GLuint glTex;
-	GLuint glTexBackground;
 
 	GLRect glRect;
 
@@ -36,28 +32,21 @@ private:
 	PointF anchor;
 	int glitchFix;
 
-	// Anchor point is centre of control, not where first tapped
-	bool centerAnchor;
-
-	// POINTER SWAP FIX
-	TouchJoy * otherTouchJoySWAPFIX;
 
 	//Double tap stuff
 	int doubleTapState; //0 = waiting for first press, 1 = waiting for first lift,
 	double doubleTapCounter;
 public:
-	sigc::signal<void, float, float, float, float> signal_move;
+	sigc::signal<void, float,float,float,float> signal_move;
 
 	sigc::signal<void, int> signal_double_tap;
 
 
-	TouchJoy(std::string tag, RectF pos, std::string floating_image, std::string background_image);
-
-	void setCenterAnchor(bool v);
+	TouchJoy(std::string tag,RectF pos,std::string image_filename);
 
 	void setHideGraphics(bool v);
 
-	void resetOutput();
+    void resetOutput();
 
 	bool processPointer(int action, int pid, float x, float y);
 
@@ -67,8 +56,6 @@ public:
 
 	void updateSize();
 
-	void registerTouchJoySWAPFIX(TouchJoy * other);
-
 	void saveXML(TiXmlDocument &doc);
 
 	void loadXML(TiXmlDocument &doc);
@@ -77,6 +64,7 @@ private:
 	void reset();
 	void calcNewValue();
 	void doUpdate();
+	double getMS();
 };
 
 }

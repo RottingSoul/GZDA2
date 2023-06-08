@@ -8,8 +8,8 @@
 
 using namespace touchcontrols;
 
-PolarSelect::PolarSelect(std::string tag, RectF pos, std::string image_filename):
-	ControlSuper(TC_TYPE_WHEELSEL, tag, pos)
+PolarSelect::PolarSelect(std::string tag,RectF pos,std::string image_filename):
+						ControlSuper(TC_TYPE_WHEELSEL,tag,pos)
 {
 	image = image_filename;
 	id = -1;
@@ -24,8 +24,7 @@ void PolarSelect::setHideGraphics(bool v)
 	hideGraphics = v;
 }
 
-void PolarSelect::resetOutput()
-{
+void PolarSelect::resetOutput(){
 	reset();
 }
 
@@ -35,8 +34,8 @@ void PolarSelect::updateSize()
 
 	glRect.resize(controlPos.right - controlPos.left, controlPos.bottom - controlPos.top);
 
-	centre.x = controlPos.left + (controlPos.right - controlPos.left) / 2;
-	centre.y = controlPos.top + (controlPos.bottom - controlPos.top) / 2;
+	centre.x = controlPos.left + (controlPos.right - controlPos.left)/2;
+	centre.y = controlPos.top + (controlPos.bottom - controlPos.top)/2;
 }
 
 float PolarSelect::distCentre(float x, float y) //also scales so 1 is half the width
@@ -45,7 +44,7 @@ float PolarSelect::distCentre(float x, float y) //also scales so 1 is half the w
 	float dist = ((centre.x - x) * (centre.x - x)) + ((centre.y - y) * (centre.y - y));
 	dist = sqrt(dist);
 
-	dist = dist * 1 / (controlPos.width() / 2);
+	dist = dist * 1/(controlPos.width()/2);
 	return dist;
 }
 
@@ -57,49 +56,47 @@ float PolarSelect::getAngle(float x, float y)
 
 	a = a * ((float)touchcontrols::ScaleX / (float)touchcontrols::ScaleY);
 
-	float angle = atan2(o, a);
+	float angle = atan2(o,a);
 
-	angle += PI / 2;
+	angle += PI/2;
 
-	if(angle < 0)
-		angle = (2 * PI) + angle;
+	if (angle < 0)
+		angle = (2*PI) + angle;
 
-	angle *= 180 / PI;
+	angle *= 180/PI;
 
 	return angle;
 }
 
 bool PolarSelect::processPointer(int action, int pid, float x, float y)
 {
-	if(action == P_DOWN)
+	if (action == P_DOWN)
 	{
-		if(id == -1)  //Only process if not active
+		if (id == -1) //Only process if not active
 		{
-			if(controlPos.contains(x, y))
+			if (controlPos.contains(x, y))
 			{
 				id = pid;
 
 				fingerPos.x = x;
 				fingerPos.y = y;
 
-				signal_action.emit(POLARSELECT_DOWN, getAngle(x, y), distCentre(x, y));
+				signal_action.emit(POLARSELECT_DOWN,getAngle(x,y),distCentre(x,y));
 
 				return true;
 			}
 
 		}
-
 		return false;
 	}
-	else if(action == P_UP)
+	else if (action == P_UP)
 	{
-		if(id == pid)
+		if (id == pid)
 		{
-			signal_action.emit(POLARSELECT_UP, getAngle(x, y), distCentre(x, y));
+			signal_action.emit(POLARSELECT_UP,getAngle(x,y),distCentre(x,y));
 			reset();
 			return true;
 		}
-
 		return false;
 	}
 	/*
@@ -116,42 +113,47 @@ bool PolarSelect::processPointer(int action, int pid, float x, float y)
 	*/
 	else if(action == P_MOVE)
 	{
-		if(pid == id)  //Finger already down
+		if (pid == id) //Finger already down
 		{
 			//LOGTOUCH("centre: %f   %f",centre.x,centre.y);
 			fingerPos.x = x;
 			fingerPos.y = y;
 
-			signal_action.emit(POLARSELECT_MOVE, getAngle(x, y), distCentre(x, y));
+			signal_action.emit(POLARSELECT_MOVE,getAngle(x,y),distCentre(x,y));
 
 			return true;
 		}
-
 		return false;
 	}
-
-	return false;
+    
+    return false;
 }
 
 bool PolarSelect::initGL()
 {
-	int x, y;
-	glTex = loadTextureFromPNG(image, x, y);
-
-	return false;
+	int x,y;
+	glTex = loadTextureFromPNG(image,x,y);
+    
+    return false;
 }
 
 bool PolarSelect::drawGL(bool forEditor)
 {
-	gl_drawRect(glTex, controlPos.left, controlPos.top, glRect);
+	//drawLines(0,0,*glLines);
+#ifndef USE_GLES2
+	//glRotatef(50,0,0,1);
+#endif
 
-	return false;
+	drawRect(glTex,controlPos.left,controlPos.top,glRect);
+
+    //LOGTOUCH("state = %d, counter = %d",doubleTapState,doubleTapCounter);
+    return false;
 }
 
 void PolarSelect::reset()
 {
 	id = -1;
-	signal_action.emit(POLARSELECT_UP, 0, 0);
+	signal_action.emit(POLARSELECT_UP,0,0);
 	doUpdate();
 }
 
@@ -169,7 +171,7 @@ void PolarSelect::doUpdate()
 void PolarSelect::saveXML(TiXmlDocument &doc)
 {
 	TiXmlElement * root = new TiXmlElement(tag.c_str());
-	doc.LinkEndChild(root);
+	doc.LinkEndChild( root );
 
 	ControlSuper::saveXML(*root);
 }
@@ -177,9 +179,9 @@ void PolarSelect::saveXML(TiXmlDocument &doc)
 void PolarSelect::loadXML(TiXmlDocument &doc)
 {
 	TiXmlHandle hDoc(&doc);
-	TiXmlElement* pElem = hDoc.FirstChild(tag).Element();
+	TiXmlElement* pElem=hDoc.FirstChild( tag ).Element();
 
-	if(!pElem)  //Check exists, if not just leave as default
+	if (!pElem) //Check exists, if not just leave as default
 		return;
 
 	ControlSuper::loadXML(*pElem);

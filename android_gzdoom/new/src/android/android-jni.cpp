@@ -66,8 +66,8 @@ touchcontrols::TouchControls *tcCutomButtons=0;
 
 
 //So can hide and show these buttons
-//touchcontrols::TouchJoy *touchJoyLeft;
-//touchcontrols::TouchJoy *touchJoyRight;
+touchcontrols::TouchJoy *touchJoyLeft;
+touchcontrols::TouchJoy *touchJoyRight;
 
 extern JNIEnv* env_;
 
@@ -319,11 +319,11 @@ void automap_multitouch_mouse_move(int action,float x, float y,float dx, float d
 }
 
 
-/*void setHideSticks(bool v)
+void setHideSticks(bool v)
 {
 	if (touchJoyLeft) touchJoyLeft->setHideGraphics(v);
 	if (touchJoyRight) touchJoyRight->setHideGraphics(v);
-}*/
+}
 
 
 void initControls(int width, int height,const char * graphics_path)
@@ -386,7 +386,7 @@ void initControls(int width, int height,const char * graphics_path)
 		tcGameMain->addControl(new touchcontrols::Button("prev_weapon",touchcontrols::RectF(0,5,3,7),"prev_weap",PORT_ACT_PREV_WEP));
 
 
-		/*touchJoyRight = new touchcontrols::TouchJoy("touch",touchcontrols::RectF(17,4,26,16),"look_arrow");
+		touchJoyRight = new touchcontrols::TouchJoy("touch",touchcontrols::RectF(17,4,26,16),"look_arrow");
 		tcGameMain->addControl(touchJoyRight);
 		touchJoyRight->signal_move.connect(sigc::ptr_fun(&right_stick) );
 		touchJoyRight->signal_double_tap.connect(sigc::ptr_fun(&right_double_tap) );
@@ -394,7 +394,7 @@ void initControls(int width, int height,const char * graphics_path)
 		touchJoyLeft = new touchcontrols::TouchJoy("stick",touchcontrols::RectF(0,7,8,16),"strafe_arrow");
 		tcGameMain->addControl(touchJoyLeft);
 		touchJoyLeft->signal_move.connect(sigc::ptr_fun(&left_stick) );
-		touchJoyLeft->signal_double_tap.connect(sigc::ptr_fun(&left_double_tap) );*/
+		touchJoyLeft->signal_double_tap.connect(sigc::ptr_fun(&left_double_tap) );
 
 		tcGameMain->signal_button.connect(  sigc::ptr_fun(&gameButton) );
 		tcGameMain->signal_settingsButton.connect(  sigc::ptr_fun(&gameSettingsButton) );
@@ -444,7 +444,7 @@ void initControls(int width, int height,const char * graphics_path)
 		tcCutomButtons->addControl(new touchcontrols::Button("D",touchcontrols::RectF(7,7,9,9),"Custom_4",SDL_SCANCODE_D,false,false));
 		tcCutomButtons->addControl(new touchcontrols::Button("E",touchcontrols::RectF(5,9,7,11),"Custom_5",SDL_SCANCODE_E,false,false));
 		tcCutomButtons->addControl(new touchcontrols::Button("F",touchcontrols::RectF(7,9,9,11),"Custom_6",SDL_SCANCODE_F,false,false));
-		//tcCutomButtons->setColor(0.7,0.7,1.f);
+		tcCutomButtons->setColor(0.7,0.7,1.f);
 
 		tcCutomButtons->signal_button.connect(sigc::ptr_fun(&customButton));
 		tcCutomButtons->signal_settingsButton.connect(  sigc::ptr_fun(&customSettingsButton) );
@@ -537,7 +537,7 @@ void frameControls()
 {
 	updateTouchScreenMode(PortableGetScreenMode());
 
-	//setHideSticks(!showSticks);
+	setHideSticks(!showSticks);
 	controlsContainer.draw();
 
 	swapBuffers();

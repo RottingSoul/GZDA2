@@ -16,6 +16,7 @@ class Button : public ControlSuper
 
 	int id;
 
+
 	GLuint glTex;
 	GLuint glTexHidden;
 
@@ -30,13 +31,17 @@ class Button : public ControlSuper
 	bool flashDir;
 	int long long  flashCount;
 
+	double getMS();
+
+	int long long current_timestamp();
+
 public:
 	std::string image;
 	sigc::signal<void, int> signal_buttonDown;
 	sigc::signal<void, int> signal_buttonUp;
 	sigc::signal<void, int, int> signal_button;
 
-	Button(std::string tag, RectF pos, std::string image_filename, int value, bool repeat = false, bool hidden = false, std::string description = "", uint32_t color = COLOUR_NONE);
+	Button(std::string tag,RectF pos,std::string image_filename,int value,bool repeat=false,bool hidden=false);
 	//Button(std::string tag,RectF pos,std::string image_filename,int value,bool repeat,bool hidden);
 	//Button(std::string tag,RectF pos,std::string image_filename,int value,bool repeat,bool hidden);
 
