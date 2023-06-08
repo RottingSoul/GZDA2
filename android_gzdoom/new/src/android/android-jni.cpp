@@ -444,7 +444,7 @@ void initControls(int width, int height,const char * graphics_path)
 		tcCutomButtons->addControl(new touchcontrols::Button("D",touchcontrols::RectF(7,7,9,9),"Custom_4",SDL_SCANCODE_D,false,false));
 		tcCutomButtons->addControl(new touchcontrols::Button("E",touchcontrols::RectF(5,9,7,11),"Custom_5",SDL_SCANCODE_E,false,false));
 		tcCutomButtons->addControl(new touchcontrols::Button("F",touchcontrols::RectF(7,9,9,11),"Custom_6",SDL_SCANCODE_F,false,false));
-		tcCutomButtons->setColor(0.7,0.7,1.f);
+		tcCutomButtons->setColour(0.7,0.7,1.f);
 
 		tcCutomButtons->signal_button.connect(sigc::ptr_fun(&customButton));
 		tcCutomButtons->signal_settingsButton.connect(  sigc::ptr_fun(&customSettingsButton) );
