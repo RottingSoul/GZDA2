@@ -24,7 +24,6 @@ $(TOP_DIR)/../../Serial/jni \
  $(GZDOOM_TOP_PATH)/lzma/C \
  $(GZDOOM_TOP_PATH)/bzip2 \
  $(GZDOOM_TOP_PATH)/src/sound \
- $(GZDOOM_TOP_PATH)/src/common \
  $(GZDOOM_TOP_PATH)/src/textures \
  $(GZDOOM_TOP_PATH)/src/thingdef \
  $(GZDOOM_TOP_PATH)/src/sdl \
